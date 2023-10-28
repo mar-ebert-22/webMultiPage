@@ -5,15 +5,19 @@
     </head>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.6.0.min.js"></script>
+    
     <body>
-        <h1>StudentFoodPlaner</h1>
-        <div>
-            <label for="search">Search for recipes:</label>
-            <input type="text" id="search" name="search">
-            <button id="search-btn">Search</button>
-        </div>
-        <ul id="list"></ul>
-        <iframe src="https://calendar.google.com/calendar/embed?src=2480e531ae9ab3854e980d15e88ec1b440d09183c71ca802773af00fbda407b1%40group.calendar.google.com&ctz=Europe%2FBerlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <header>
+            <h1>StudentFoodPlaner</h1>
+        </header>
+        <main class="mainContent">
+            <div class="search_function">
+                <label for="search">Search for recipes:</label>
+                <input type="text" id="search" name="search">
+                <button id="search-btn">Search</button>
+                <ul id="list"></ul>
+        <iframe id="calendar" src="https://calendar.google.com/calendar/embed?src=2480e531ae9ab3854e980d15e88ec1b440d09183c71ca802773af00fbda407b1%40group.calendar.google.com&ctz=Europe%2FBerlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <ul id="recipelist"></ul>
         <script>
             $(document).ready(function() {
                 $('#search-btn').click(function() {
@@ -44,35 +48,39 @@
                 });
             });
         </script>
-    </body>
-</html>
+            </div>
         
         <ul id="list"></ul>
 
-            <script>
-                (function getShoppingList() {
-                    $.ajax({
-                                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    contentType: 'application/json',
-                                    success: function (data) {
-                                        tempString = '';
-                                        $.each(data.ingredients, function(index, value) {
-                                            tempString += '<li>Ingredient: ' +  ' : ' + value.name +  ' quantity: '
-                                                        + value.quantity + '</li>';
-                                        })
-                                        $("#list").html(tempString);
-                                    },
-                                    error: function (xhr, ajaxOptions, thrownError) {
-                                    alert('Error: ' + xhr.status + '   ' + thrownError);
-                                }
-                        });
-                })();
-            </script>
+        <script>
+            (function getShoppingList() {
+                $.ajax({
+                                url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
+                                type: 'GET',
+                                dataType: 'json',
+                                contentType: 'application/json',
+                                success: function (data) {
+                                    tempString = '';
+                                    $.each(data.ingredients, function(index, value) {
+                                        tempString += '<li>Ingredient: ' +  ' : ' + value.name +  ' quantity: '
+                                                    + value.quantity + '</li>';
+                                    })
+                                    $("#list").html(tempString);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                            }
+                    });
+            })();
+        </script>
 
-        <ul id="recipelist"></ul>
-
-        
+    
+        </main>
     </body>
+    <footer>
+        <p> © 2023 Senid, Anton and Marvin</p>
+    </footer>
 </html>
+        
+        
+        
