@@ -14,80 +14,78 @@
               });
         
             </script>
+            
+            <link rel="stylesheet" href="css/style.css">
+            <script src="js/jquery-3.6.0.min.js"></script>
     </head>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/jquery-3.6.0.min.js"></script>
     
     <body>
         <header>
             <h1>StudentFoodPlaner</h1>
         </header>
-        <main class="mainContent">
+        
             <div class="search_function">
                 <label for="search">Search for recipes:</label>
                 <input type="text" id="search" name="search">
                 <button id="search-btn">Search</button>
-                <ul id="list"></ul>
-        <div id="calendar"></div>
-        <ul id="recipelist"></ul>
-        <script>
-            $(document).ready(function() {
-                $('#search-btn').click(function() {
-                    var query = $('#search').val();
-                    $.ajax({
-                        url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
-                        type: 'GET',
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        headers: {
-                            'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
-                            'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-                        },
-                        data: {
-                            query: query
-                        },
-                        success: function (data) {
-                            var tempString = '';
-                            $.each(data.results, function(index, value) {
-                                tempString += '<li>' + value.title + '</li>';
-                            })
-                            $("#recipelist").html(tempString);
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            alert('Error: ' + xhr.status + '   ' + thrownError);
-                        }
-                    });
-                });
-            });
-        </script>
+                <ul id="recipelist"></ul>
+                    <script>
+                        $(document).ready(function() {
+                            $('#search-btn').click(function() {
+                                var query = $('#search').val();
+                                $.ajax({
+                                    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search',
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    headers: {
+                                        'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
+                                        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+                                    },
+                                    data: {
+                                        query: query
+                                    },
+                                    success: function (data) {
+                                        var tempString = '';
+                                        $.each(data.results, function(index, value) {
+                                            tempString += '<li>' + value.title + '</li>';
+                                        })
+                                        $("#recipelist").html(tempString);
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
             </div>
-        
-        <ul id="list"></ul>
-
-        <script>
-            (function getShoppingList() {
-                $.ajax({
-                                url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
-                                type: 'GET',
-                                dataType: 'json',
-                                contentType: 'application/json',
-                                success: function (data) {
-                                    tempString = '';
-                                    $.each(data.ingredients, function(index, value) {
-                                        tempString += '<li>Ingredient: ' +  ' : ' + value.name +  ' quantity: '
-                                                    + value.quantity + '</li>';
-                                    })
-                                    $("#list").html(tempString);
-                                },
-                                error: function (xhr, ajaxOptions, thrownError) {
-                                alert('Error: ' + xhr.status + '   ' + thrownError);
-                            }
-                    });
-            })();
-        </script>
-
-    
-        </main>
+            
+        <div id="calendar"></div>
+        <div id="shoppinglist">
+            <ul id="list"></ul>
+        </div>
+                <script>
+                    (function getShoppingList() {
+                        $.ajax({
+                                        url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        success: function (data) {
+                                            tempString = '';
+                                            $.each(data.ingredients, function(index, value) {
+                                                tempString += '<li>' + value.name +  ' quant. : '
+                                                            + value.quantity + '</li>';
+                                            })
+                                            $("#list").html(tempString);
+                                        },
+                                        error: function (xhr, ajaxOptions, thrownError) {
+                                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                                    }
+                            });
+                    })();
+                </script>
     </body>
     <footer>
         <p> © 2023 Senid, Anton and Marvin</p>

@@ -1,25 +1,53 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
-    display: grid; 
-    grid-template-rows: 1fr auto 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+/* Define the grid container */
+body{
+    display: grid;
+    grid-template-areas: "header header header"
+                        " search_function calendar shoppinglist"
+                        "footer footer footer";
+    grid-template-rows: 10% 80% 10% ;
+    grid-template-columns: auto 70% 15%;
 }
 
+/* Define the header */
 header {
-    color: black;
-    padding: 20px;
+    grid-area: header;
+    grid-column:1/4;
     grid-row:1;
-    grid-column: 1/4;
-    background: url(../foods.jpg) no-repeat center center;
-    
-}   
-
-footer {
     background-color: #333;
     color: #fff;
-    padding: 20px;
-    text-align: center;
+}
+
+/* Define the search function */
+#search_function {
+    grid-area: search_function;
+    grid-column:1;
+    grid-row:2;
+    background-color: #ccc;
+}
+
+/* Define the calendar */
+#calendar {
+    grid-area:calendar;
+    grid-column:2/3;
+    grid-row:2;
+    background-color: #ccc;
+}
+
+/* Define the shopping list */
+#shoppinglist {
+    grid-area:shoppinglist;
+    grid-column:3;
+    grid-row:2;
+    background-color:aqua;
+}
+#list{
+    list-style: none;
+}
+/* Define the footer */
+footer {
+    grid-area:footer;
+    grid-column:1/4;
     grid-row:3;
-    grid-column: 1/4;
+    background-color: black;
+    color: #fff;
 }
