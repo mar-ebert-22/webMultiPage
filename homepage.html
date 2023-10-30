@@ -2,6 +2,18 @@
 <html lang="en">
     <head>
         <title>StudentFoodPlaner</title>
+            <meta charset='utf-8' />
+            <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                  initialView: 'dayGridMonth'
+                });
+                calendar.render();
+              });
+        
+            </script>
     </head>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/jquery-3.6.0.min.js"></script>
@@ -16,7 +28,7 @@
                 <input type="text" id="search" name="search">
                 <button id="search-btn">Search</button>
                 <ul id="list"></ul>
-        <iframe id="calendar" src="https://calendar.google.com/calendar/embed?src=2480e531ae9ab3854e980d15e88ec1b440d09183c71ca802773af00fbda407b1%40group.calendar.google.com&ctz=Europe%2FBerlin" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <div id="calendar"></div>
         <ul id="recipelist"></ul>
         <script>
             $(document).ready(function() {
