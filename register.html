@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register Page</title>
+</head>
+<body>
+
+
+<form>
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name"><br><br>
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last name" name="last_name"><br><br>
+    <label for="new_password">New Password:</label>
+    <input type="password" id="new_password" name="new_password"><br><br>
+    <label for="confirm_password">Confirm Password:</label>
+    <input type="password" id="confirm_password" name="confirm_password"><br><br>
+    <button id="usersubmit">Sign in.</button>
+</form>
+
+<script>
+    $("#usersubmit").click(function() {
+        var user = {
+                email: $("#userEmail").val(),
+                password: $("#userPassword").val()
+        };
+        console.log(user);
+        $.ajax({
+            url: 'https://secret-plains-43943-9f16411ee064.herokuapp.com/api/v1.0/auth/signin',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                localStorage.setItem('mosbachtoken',data.token);
+            },
+            data: JSON.stringify(user),
+            processData: false,
+            contentType: "application/json; charset=UTF-8",
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Error: ' + xhr.status + '   ' + thrownError);
+              }
+        });
+    });
+</script>
+
+
+</body>
+
+</html>
