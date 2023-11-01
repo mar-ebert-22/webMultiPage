@@ -26,6 +26,23 @@
 </form>
 
 <script>
+    (function createUser() {
+                        $.ajax({
+                                        url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/user',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        data: JSON.stringify(user),
+                                        processData: false,
+                                        success: function (data) {
+                                            // Handle the success response from the server
+                                            alert("User erstellt: " + data);
+                                        },
+                                        error: function (xhr, ajaxOptions, thrownError) {
+                                            alert('Error: ' + xhr.status + '   ' + thrownError);
+                                        }
+                            });
+                    })();
     $("#usersubmit").click(function() {
         var user = {
             user: {
