@@ -3,17 +3,6 @@
     <head>
         <title>StudentFoodPlaner</title>
             <meta charset='utf-8'/>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                  var calendarEl = document.getElementById('calendar');
-                  var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    droppable: true,
-                  });
-                  calendar.render();
-                });
-          
-              </script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
             <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
@@ -65,27 +54,50 @@
                                 });
                             });
                         });
-
-                        $( function() {
-                            $( "#calendar" ).FullCalendar({
-                                initialView: 'dayGridMonth',
-                                droppable: true,
-                                drop: function( Info ) {
-                                    var title = info.draggedEl.data('title');
-                    var recipeId = info.draggedEl.data('id');
-                    // Hier kannst du das ausgewählte Rezept in den Kalender einfügen oder speichern.
-                    var eventData = {
-                        title: title,
-                        start: info.date,
-                        allDay: true // Optional, je nachdem, wie du die Termine handhaben möchtest.
-                    };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true);                               }
-                            });
-                        } );
                     </script>
             </div>
             
-        <div id="calendar"></div>
+        <div id="calendar"></div> 
+        <script> 
+            document.addEventListener('DOMContentLoaded', function() {
+                    var calendarEl = document.getElementById('calendar');
+
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        timeZone: 'UTC',
+                        initialView: 'dayGridMonth',
+                        editable: true,
+                        selectable: true,
+                        droppable:true,
+                        weekNumbers:true,
+                        eventClick: function(info) {
+                            if (confirm("Are you sure you want to delete this event?")) {
+                                info.event.remove();
+                            }
+                        }
+                    });
+                       
+                    
+
+                calendar.render();
+                    var Draggable = FullCalendar.Draggable;
+                    var containerEl = document.getElementById('recipelist');
+
+                    // Initialisierung der externen Events bestehend aus den Rezepten
+
+                    new Draggable(containerEl, {
+                        itemSelector: '.recipe',
+                        eventData: function(recipeEl) {
+                        return {
+                            title: recipeEl.innerText
+                        };
+                        }
+                    });
+                    
+            });
+            
+        </script>
+        
+        </script>
         <div id="shoppinglist">
             <ul id="list"></ul>
         </div>
@@ -114,7 +126,5 @@
     <footer>
         <p> © 2023 Senid, Anton and Marvin</p>
     </footer>
+
 </html>
-        
-        
-        
