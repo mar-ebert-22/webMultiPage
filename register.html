@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Register Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
 
@@ -10,61 +11,43 @@
 
 <p>Here you can create your account</p>
 
-<form id="userForm">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="first_name" name="first_name"><br><br>
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="last_name" name="last_name"><br><br>
-    <label for="userPassword">Password:</label>
-    <input type="password" id="userPassword" name="userPassword"><br><br>
-    <label for="userEmail">User Email:</label>
-    <input type="email" id="userEmail" name="userEmail"><br><br>
-    <button id="usersubmit"> Sign in.
-        
-       </button>
 
-</form>
+    <label>First Name:</label>
+    <input type="text" id="first_name"><br><br>
+    <label >Last Name:</label>
+    <input type="text" id="last_name"><br><br>
+    <label>Password:</label>
+    <input type="password" id="userPassword"><br><br>
+    <label>User Email:</label>
+    <input type="email" id="userEmail"><br><br>
+    <button id="usersubmit"> Sign in.</button>
 
 <script>
-    /* (function createUser() {
-                        $.ajax({
-                                        url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/user',
-                                        type: 'POST',
-                                        dataType: 'json',
-                                        contentType: 'application/json',
-                                        data: JSON.stringify(user),
-                                        processData: false,
-                                        success: function (data) {
-                                            // Handle the success response from the server
-                                            alert("User erstellt: " + data);
-                                        },
-                                        error: function (xhr, ajaxOptions, thrownError) {
-                                            alert('Error: ' + xhr.status + '   ' + thrownError);
-                                        }
-                            });
-                    })(); */
     $("#usersubmit").click(function() {
-        var user = {
+        var tokenuser = {
+            token: "123", // Du kannst hier den gewünschten Token-Wert setzen.
             user: {
-                firstName: $("#firstname").val(),
-                lastName: $("#lastname").val(),
-                userEmail: $("#email").val(),
-                userPassword: $("#password").val()
+                firstName: $("#first_name").val(),
+                lastName: $("#last_name").val(),
+                userPassword: $("#userPassword").val(),
+                userEmail: $("#userEmail").val()
             },
-            token: "123" // Du kannst hier den gewünschten Token-Wert setzen.
+            
         };
-        
+        console.log(tokenuser);
         $.ajax({
             url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/user',
             type: 'POST',
             dataType: 'json',
             contentType: 'application/json',
-            data: JSON.stringify(user),
-            processData: false,
+           
             success: function (data) {
                 // Handle the success response from the server
-                alert("User erstellt: " + data);
+                alert("User erstellt: " + user.userEmail);
             },
+            data: JSON.stringify(tokenuser), // Hier wird das JSON-Objekt in einen String umgewandelt.
+            processData: false,
+            contentType: "application/json; charset=UTF-8",
             error: function (xhr, ajaxOptions, thrownError) {
                 alert('Error: ' + xhr.status + '   ' + thrownError);
             }
