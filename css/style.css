@@ -52,6 +52,9 @@ footer {
     color: #fff;
 }
 #Navbar {
+    grid-area:header;
+    grid-column:1/4;
+    grid-row:1;
     list-style-type: none;
     margin: 0;
     padding: 0;
