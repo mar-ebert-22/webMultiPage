@@ -51,3 +51,7 @@ footer {
     background-color: black;
     color: #fff;
 }
+#Navbar{
+    display:inline;
+    list-style: none;
+}
