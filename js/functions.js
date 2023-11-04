@@ -15,4 +15,5 @@
         alert('Error: ' + xhr.status + '   ' + thrownError);
         }
     })();
-});;
+});
+
