@@ -50,6 +50,8 @@ footer {
     grid-row:3;
     background-color: black;
     color: #fff;
+    margin:0;
+    padding:0;
 }
 #Navbar {
     grid-area:header;
@@ -63,6 +65,9 @@ footer {
   }
   
   #Navbar li {
+    grid-area:header;
+    grid-column:1/4;
+    grid-row:1;
     float: left;
   }
   
