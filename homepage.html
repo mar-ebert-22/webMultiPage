@@ -9,12 +9,68 @@
             <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             
+    <style>
+
+
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000; /* Set a high z-index */
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .cart-icon {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 40px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        
+            </style>
+
     </head>
     
     <body>
         <header>
             <h1>StudentFoodPlaner</h1>
+            
+        
+           
+
         </header>
+        <div class="popup" id="popup">
+            <div class="popup-content">
+                <span class="close" id="close-popup">&times;</span>
+                <h2>Supermärkte in Mosbach</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20794.319303994875!2d9.112347846916917!3d49.34666112907168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssupermarkt!5e0!3m2!1sde!2sde!4v1699007486891!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="cart-icon" id="open-popup">&#128722;</div>
         
             <div class="search_function">
                 <label for="search">Search for recipes:</label>
@@ -105,7 +161,22 @@
             
         </script>
         
+        <script src="script.js"></script>
+        <script>
+            const openPopup = document.getElementById('open-popup');
+    const closePopup = document.getElementById('close-popup');
+    const popup = document.getElementById('popup');
+    
+    openPopup.addEventListener('click', () => {
+        popup.style.display = 'block';
+    });
+    
+    closePopup.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+    
         </script>
+
         <div id="shoppinglist">
             <ul id="list"></ul>
         </div>
