@@ -61,7 +61,6 @@
         <script> 
             document.addEventListener('DOMContentLoaded', function() {
                     var calendarEl = document.getElementById('calendar');
-
                     var calendar = new FullCalendar.Calendar(calendarEl, {
                         timeZone: 'UTC',
                         initialView: 'dayGridMonth',
@@ -92,7 +91,16 @@
                         };
                         }
                     });
-                    
+                    const eventsArray = [];
+
+                        // Eine Schleife verwenden, um die Rückgabewerte der Funktion in das Array aufzunehmen
+                        for (let i = 1; i <= 5; i++) {
+                        eventsArray.getEvents();
+                        }
+
+                        // Das Array mit den Veranstaltungen anzeigen
+                        console.log(eventsArray);
+                                            
             });
             
         </script>
