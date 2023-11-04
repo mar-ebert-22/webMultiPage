@@ -51,7 +51,7 @@ footer {
     background-color: black;
     color: #fff;
 }
-#Navbar{
+#Navbar li{
     display:inline;
     list-style: none;
 }
