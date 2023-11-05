@@ -99,7 +99,8 @@
                     success: function (data) {
                         alert("User eingeloggt: " + user.userEmail);
                         
-                localStorage.setItem('mosbachtoken',data.token);
+                localStorage.setItem('usertoken',data.token);
+                console.log(data.token);
             },
             data: JSON.stringify(user),
             processData: false,
