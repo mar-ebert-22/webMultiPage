@@ -2,10 +2,10 @@
 <html lang="en">
     <head>
         <title>StudentFoodPlaner</title>
-            <meta charset='utf-8'/>
+            <meta charset="utf-8"/>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-            <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+            <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
             <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             
@@ -61,7 +61,7 @@
                     <li><a href="homepage.html">Home</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
-                    <li><a id="logout">Logout</a></li>
+                    <li><a id="logout" onclick="logout()">Logout</a></li>
                 </ul>
             </nav>
         </header>
@@ -80,42 +80,40 @@
                 <button id="search-btn">Search</button>
                 <ul id="recipelist"></ul>
 
+                
                 <script>
-                    // Funktion, um den Benutzer auszuloggen
-                    function performLogout() {
 
-                        const email = prompt("Bitte geben Sie Ihre E-Mail-Adresse ein:");
+                    function logout() {
+
+                        var email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
 
                         console.log(email);
-                        $ajax({
-                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logout',
-                            type: 'DELETE',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                email: email
-                            }),
-                            success: function (data) {
-                                alert('Logout erfolgreich' + email);
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                alert('Error: ' + xhr.status + '   ' + thrownError);
-                            }
-                        });
-                        // Hier kannst du den tatsächlichen Logout-Vorgang durchführen
-                        // Zum Beispiel:
+                        if (email) {
+                            $.ajax({
+                                url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logoff',
+                                type: 'DELETE',
+                                dataType: 'json',
+                                contentType: "application/json; charset=UTF-8",
+                                processData: false,
+                                data: JSON.stringify({
+                                    email: email
+                                }),
+                                success: function (data) {
+                                    alert('Logout erfolgreich');
+                                    window.location.href = 'login.html';
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    alert('Error: ' + xhr.status + '   ' + thrownError);
+                                }
+
+                            });
+                        }
                         
-                        // 1. Sitzungsdaten löschen
-                        // 2. Benutzerzustände zurücksetzen
-                        // 3. Den Benutzer auf die Anmeldeseite weiterleiten
-            
-                        // In diesem vereinfachten Beispiel leiten wir den Benutzer einfach auf eine andere Seite weiter
-                        window.location.href = 'login.html';
                     }
-            
-                    // Event-Handler für den Logout-Button
-                    document.getElementById('#logout').addEventListener('click', performLogout);
+                    
+
                 </script>
+
 
                 
                     <script>

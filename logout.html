@@ -4,44 +4,53 @@
         <title>Logout</title>
             <meta charset="utf-8"/>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-            <script>
-                    function logout() {
-    // Abfrage der Email-Adresse des Benutzers
-    const email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
-
-    console.log(email);
-                        $ajax({
-                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logout',
-                            type: 'DELETE',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            data: JSON.stringify({
-                                email: email
-                            }),
-                            success: function (data) {
-                                alert('Logout erfolgreich' + email);
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                alert('Error: ' + xhr.status + '   ' + thrownError);
-                            }
-                        });
-
-    // Führe hier den Logout-Prozess durch, z.B. indem du den Benutzer ausloggst und die Session beendest
-    // Anschließend kannst du den Benutzer auf die Login-Seite weiterleiten
-    window.location.href = "login.html";
-}
-            </script>
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+           
     </head>
     <body>
 
+        <button  onclick="logout()">Logout</button>
+        <br>
+
+
+        <script>
+            function logout() {
+// Abfrage der Email-Adresse des Benutzers
+var email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
+
+console.log(email);
+if (email) {
+                $.ajax({
+                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logoff',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    contentType: "application/json; charset=UTF-8",
+                    processData: false,
+                    data: JSON.stringify({
+                        email: email
+                    }),
+                    success: function (data) {
+                        alert('Logout erfolgreich');
+                        window.location.href = 'login.html';
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                    }
+                });
+
+// Führe hier den Logout-Prozess durch, z.B. indem du den Benutzer ausloggst und die Session beendest
+// Anschließend kannst du den Benutzer auf die Login-Seite weiterleiten
+
+}
+            }
+    </script>
+
+       
+
     </body>
 
-    <script>
-        $(document).ready(function() {
-            logout();
-        });
-    </script>
+   
 </html>
 
 
