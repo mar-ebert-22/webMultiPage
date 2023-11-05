@@ -17,10 +17,10 @@
     })();
 });
 
-(function addRecipeToDB(event) {
+(function addRecipeToDB() {
 
     var tokenrecipe = {
-        token : localStorage.getItem('token'),
+        token : localStorage.getItem('usertoken'),
         recipe: {
             name: event.title,
             date: event.date
