@@ -100,11 +100,12 @@
                                     email: email
                                 }),
                                 success: function (data) {
-                                    alert('Logout erfolgreich');
+                                    //alert('Logout erfolgreich');
                                     window.location.href = 'login.html';
                                 },
                                 error: function (xhr, ajaxOptions, thrownError) {
                                     alert('Error: ' + xhr.status + '   ' + thrownError);
+                                    window.location.href = 'login.html';
                                 }
 
                             });
