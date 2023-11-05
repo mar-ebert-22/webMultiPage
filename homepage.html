@@ -166,7 +166,7 @@
                                         date: date
                                     }
                                 }
-                                $.ajax({
+                                $.Ajax({
                                     url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
                                     type: 'POST',
                                     dataType: 'json',
@@ -189,7 +189,9 @@
                         selectable: true,
                         droppable:true,
                         weekNumbers:true,
-                        eventdrop: addRecipeToDB(event.title, event.start), 
+                        eventDrop: function(info){ 
+                            console.log(info.event.title + " was dropped on " + info.event.start.toISOString() + " and has id " + info.event.id)
+                            addRecipeToDB(event.title, event.start)}, 
                         eventClick: 
                                     function(info) {
                                         if (confirm("Are you sure you want to delete this event?")) {
