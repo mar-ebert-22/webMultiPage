@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Logout</title>
+            <meta charset='utf-8'/>
+            <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+            <script>
+                    function logout() {
+    // Abfrage der Email-Adresse des Benutzers
+    const email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
+
+    // Führe hier den Logout-Prozess durch, z.B. indem du den Benutzer ausloggst und die Session beendest
+    // Anschließend kannst du den Benutzer auf die Login-Seite weiterleiten
+    window.location.href = "login.html";
+}
+            </script>
+    </head>
+    <body>
+
+    </body>
+
+    <script>
+        $(document).ready(function() {
+            logout();
+        });
+    </script>
+</html>
+
+

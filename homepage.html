@@ -61,6 +61,7 @@
                     <li><a href="homepage.html">Home</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
+                    <li><a href="logout.html">Logout</a></li>
                 </ul>
             </nav>
         </header>
@@ -78,6 +79,43 @@
                 <input type="text" id="search" name="search">
                 <button id="search-btn">Search</button>
                 <ul id="recipelist"></ul>
+
+                <script>
+                    // Funktion, um den Benutzer auszuloggen
+                    function performLogout() {
+
+                        const email = prompt("Bitte geben Sie Ihre E-Mail-Adresse ein:");
+
+                        console.log(email);
+                        $ajax({
+                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logout',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                email: email
+                            }),
+                            success: function (data) {
+                                alert('Logout erfolgreich' + email);
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                            }
+                        });
+                        // Hier kannst du den tatsächlichen Logout-Vorgang durchführen
+                        // Zum Beispiel:
+                        
+                        // 1. Sitzungsdaten löschen
+                        // 2. Benutzerzustände zurücksetzen
+                        // 3. Den Benutzer auf die Anmeldeseite weiterleiten
+            
+                        // In diesem vereinfachten Beispiel leiten wir den Benutzer einfach auf eine andere Seite weiter
+                        window.location.href = 'login.html';
+                    }
+            
+                    // Event-Handler für den Logout-Button
+                    document.getElementById('logoutButton').addEventListener('click', performLogout);
+                </script>
 
                 
                     <script>
