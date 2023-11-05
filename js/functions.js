@@ -17,19 +17,13 @@
     })();
 });
 
-(function addRecipeToDB() {
+(function addRecipeToDB(event) {
 
-    $('#calendar').on('eventDrop', function(event, delta, revertFunc) {
-        // Get the recipe name from the event object
-        var recipeName = event.title;
-        var recipeDate = event.start.format(YYY-MM-DD);
-
-    });
     var tokenrecipe = {
         token : localStorage.getItem('token'),
         recipe: {
-            name: recipeName,
-            date: recipeDate
+            name: event.title,
+            date: event.date
         }
 
     };
