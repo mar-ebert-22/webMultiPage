@@ -169,7 +169,7 @@
                         weekNumbers:true,
                         eventDrop: function(info){ 
                             console.log(info.event.title + " was dropped on " + info.event.start.toISOString() + " and has id " + info.event.id)
-                           addRecipeToDB(info.event.title, info.event.start());
+                           addRecipeToDB(event.title, event.start);
                         }, 
                         eventClick: 
                                     function(info) {
