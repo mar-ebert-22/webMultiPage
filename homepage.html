@@ -168,8 +168,8 @@
                         droppable:true,
                         weekNumbers:true,
                         eventDrop: function(info){ 
-                            console.log(info.event.title + " was dropped on " + info.event.start.toISOString());
-                            addRecipeToDB(info.event.title, info.event.start);
+                            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+                            addRecipeToDB(info.event.title);
                         }, 
                         eventClick: 
                                     function(info) {
