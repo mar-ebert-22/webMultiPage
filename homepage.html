@@ -43,13 +43,27 @@
         
         .cart-icon {
             position: absolute;
-            top: 100px;
+            top: 15%;
             bottom: 0px;
             right: 40px;
             font-size: 40px;
             cursor: pointer;
             z-index: 1;
         }
+
+        #delete-ingredient {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            font-size: 50px;
+        }
+
+        #shoppinglist {
+            position: relative;
+}
         
             </style>
 
@@ -285,7 +299,7 @@
 
         <div id="shoppinglist">
             <ul id="list"></ul>
-            <button id="delete-ingredient" onclick="deleteIngredient()">Delete Ingredient?</button>
+            <button id="delete-ingredient" onclick="deleteIngredient()">🗑️</button>
         </div>
                 <script>
                     (function getShoppingList() {
