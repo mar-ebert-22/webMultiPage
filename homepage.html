@@ -167,9 +167,10 @@
                         selectable: true,
                         droppable:true,
                         weekNumbers:true,
-                        eventDrop: function(info){ 
-                            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
-                            addRecipeToDB(info.event.title);
+                        eventReceive: 
+                                function(info){ 
+                                    alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+                                    addRecipeToDB(info.event.title);
                         }, 
                         eventClick: 
                                     function(info) {
