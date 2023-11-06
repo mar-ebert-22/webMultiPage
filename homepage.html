@@ -170,7 +170,7 @@
                         eventReceive: 
                                 function(info){ 
                                     alert(info.event.title + " was dropped on " + info.event.start.toISOString());
-                                    addRecipeToDB(info.event.title);
+                                    addRecipeToDB(info.event.title, info.event.date);
                         }, 
                         eventClick: 
                                     function(info) {
@@ -184,10 +184,11 @@
 
                 calendar.render();
                 console.log(localStorage.getItem('usertoken'));
-                function addRecipeToDB(recipeName) {
+                function addRecipeToDB(recipeName, recipeDate) {
                                 var tokenrecipe={
                                     recipe: {
-                                        name: recipeName
+                                        name: recipeName,
+                                        datum: recipeDate
                                     },
                                     token: localStorage.getItem('usertoken')
                                     
