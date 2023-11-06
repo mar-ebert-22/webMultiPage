@@ -1,2 +1,2 @@
-<?php header( 'Location: /homepage.html' ); ?>
+<?php header( 'Location: /login.html' ); ?>
 
