@@ -59,7 +59,27 @@
 
         #shoppinglist {
             position: relative;
-}
+        }
+
+        #open-popupIngredients {
+            position: absolute;
+            bottom: 0;
+            font-size: 45px;
+            background: none;
+            border: none;
+        }
+
+        .popupIngredients {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Set a high z-index */
+        }
         
             </style>
 
@@ -73,8 +93,8 @@
                     <li><a class="cart-icon" id="open-popup">&#128722;</a></li>
                     
                     <li><a href="homepage.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                   <!-- <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>-->
                     <li><a id="logout" onclick="logout()">Logout</a></li>
                 </ul>
             </nav>
@@ -299,6 +319,7 @@
         <div id="shoppinglist">
             <ul id="list"></ul>
             <button id="delete-ingredient" onclick="deleteIngredient()">🗑️</button>
+            <button id="open-popupIngredients" class="action-button">➕</button>
         </div>
                 <script>
                     (function getShoppingList() {
@@ -321,17 +342,78 @@
                             });
                     })();
                 </script>
+                
+                <div class="popupIngredients" id="popupIngredients">
+                    <h2>Zutat hinzufügen</h2>
+                    <label for="name">Name: </label>
+                    <input type="text" id="name">
+                    <br>
+                    <label for="menge">Menge: </label>
+                    <input type="text" id="menge">
+                    <br>
+                    <button id="add-ingredient">Hinzufügen</button>
+                    <button id="close-popupIngredients">Abbrechen</button>
+                </div>
+            
                 <script>
 
-               // document.querySelector('#delete-ingredient').addEventListener('click', deleteIngredient()); {
-                //event.preventDefault(); // Verhindert das Laden der Logout-Seite
+                    const openPopupIngredients = document.getElementById('open-popupIngredients');
+                    const closePopupIngredients = document.getElementById('close-popupIngredients');
+                    const popupIngredients = document.getElementById('popupIngredients');
+                    const addIngredientButton = document.getElementById('add-ingredient');
+                    const ingredientNameInput = document.getElementById('name');
+                    const ingredientQuantityInput = document.getElementById('menge');
+                    
+                    openPopupIngredients.addEventListener('click', () => {
+                    popupIngredients.style.display = 'block';
+                    });
+
+                    closePopupIngredients.addEventListener('click', () => {
+                        popupIngredients.style.display = 'none';
+                    });
+
+                    addIngredientButton.addEventListener('click', () => {
+                        const ingredientName = ingredientNameInput.value;
+                        const ingredientQuantity = ingredientQuantityInput.value;
+
+                        if (ingredientName && ingredientQuantity) {
+                            const ingredientData = {
+                                token: localStorage.getItem('usertoken'),
+                                ingredients: {
+                                    name: ingredientName,
+                                    quantity: ingredientQuantity
+                                }
+                            };
+           
+                        $.ajax({
+                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(ingredientData),
+                            success: function (data) {
+                                alert('Zutat erfolgreich hinzugefügt');
+                                window.location.href = 'homepage.html';
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                                window.location.href = 'homepage.html';
+                            }
+                        });
+                    } else {
+                        alert('Bitte geben Sie den Namen und die Menge der Zutat ein');
+                    }
+
+                    popupIngredients.style.display = 'none';
+                });
+                </script>
 
                 
 
                 
         
 
-        </script>
+       
     </body>
     <footer>
         <p> © 2023 Senid, Anton and Marvin</p>
