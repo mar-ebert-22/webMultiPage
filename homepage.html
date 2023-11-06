@@ -169,7 +169,8 @@
                         weekNumbers:true,
                         eventDrop: function(info){ 
                             console.log(info.event.title + " was dropped on " + info.event.start.toISOString() + " and has id " + info.event.id)
-                           }, 
+                           addRecipeToDB(info.event.title, info.event.start());
+                        }, 
                         eventClick: 
                                     function(info) {
                                         if (confirm("Are you sure you want to delete this event?")) {
@@ -181,22 +182,7 @@
                     
 
                 calendar.render();
-                    var Draggable = FullCalendar.Draggable;
-                    var containerEl = document.getElementById('recipelist');
-
-                    // Initialisierung der externen Events bestehend aus den Rezepten
-
-                    new Draggable(containerEl, {
-                        itemSelector: '.recipe',
-                        eventData: function(recipeEl) {
-                        return {
-                            title: recipeEl.innerText
-                        };
-                        eventDrop:addRecipeToDB(event.title,event.date);
-                        }
-                    });
-                      
-                    function addRecipeToDB(title, date) {
+                function addRecipeToDB(title, date) {
                                 var tokenrecipe={
                                     token: localStorage.getItem('usertoken'),
                                     recipe: {
@@ -218,7 +204,20 @@
                                         alert('Error: ' + xhr.status + '   ' + thrownError);
                                     }
                                 });
-                            }                      
+                            }    
+                    var Draggable = FullCalendar.Draggable;
+                    var containerEl = document.getElementById('recipelist');
+
+                    // Initialisierung der externen Events bestehend aus den Rezepten
+
+                    new Draggable(containerEl, {
+                        itemSelector: '.recipe',
+                        eventData: function(recipeEl) {
+                            return {
+                                title: recipeEl.innerText
+                            };
+                        }
+                    });                       
             });
             
         </script>
