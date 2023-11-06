@@ -185,10 +185,11 @@
                 console.log(localStorage.getItem('usertoken'));
                 function addRecipeToDB(title, date) {
                                 var tokenrecipe={
-                                    token: localStorage.getItem('usertoken'),
                                     recipe: {
-                                        title: title
-                                    }
+                                        name: title
+                                    },
+                                    token: localStorage.getItem('usertoken')
+                                    
                                 }
                                 console.log(tokenrecipe);
                                 $.ajax({
