@@ -197,10 +197,12 @@
                                     type: 'POST',
                                     dataType: 'json',
                                     contentType: 'application/json',
-                                    data: JSON.stringify(tokenrecipe),
                                     success: function(data) {
-                                        console.log('Recipe added to database');
+                                        alert("Success.");
                                     },
+                                    data: JSON.stringify(tokenrecipe),
+                                    processData:false,
+                                    contentType: "application/json; charset=UTF-8",
                                     error: function(xhr, ajaxOptions, thrownError) {
                                         alert('Error: ' + xhr.status + '   ' + thrownError);
                                     }
