@@ -16,33 +16,3 @@
         }
     })();
 });
-
-(function addRecipeToDB(event) {
-
-    var tokenrecipe = {
-        token : localStorage.getItem('token'),
-        recipe: {
-            name: event.title,
-            date: event.date
-        }
-
-    };
-    console.log(tokenrecipe);
-    $.ajax({
-        url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            alert("Success.");
-        },
-        data: JSON.stringify(tokenrecipe),
-        processData: false,
-        contentType: "application/json; charset=UTF-8",
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert('Error: ' + xhr.status + '   ' + thrownError);
-        }
-    });
-
-   
-})();

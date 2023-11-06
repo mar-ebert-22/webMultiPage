@@ -6,8 +6,9 @@
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
+            <script src=" js/functions.js"></script>
             <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             
 <style>
     .popup {
@@ -82,7 +83,7 @@
                 <ul id="recipelist"></ul>
 
                 
-                <script>
+                    <script>
 
                     function logout() {
 
@@ -156,37 +157,59 @@
         <script> 
             document.addEventListener('DOMContentLoaded', function() {
                     var calendarEl = document.getElementById('calendar');
-                    var calendar = new FullCalendar.Calendar(calendarEl, {
+
+                    var calendar = new FullCalendar.Calendar(calendarEl, 
+                    
+                    {
                         timeZone: 'UTC',
                         initialView: 'dayGridMonth',
                         editable: true,
                         selectable: true,
                         droppable:true,
                         weekNumbers:true,
-                        eventdrop: 
-                        {
-
-                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
-                            method: 'POST',
-                            dataType: 'json',
-                            contentType: 'application/json',
-                            success: function (data) {
-                                alert('Added to calendar');
-                            },
-                            error: function (xhr, ajaxOptions, thrownError) {
-                                alert('Error: ' + xhr.status + '   ' + thrownError);
-                            }
-                        },
-                        eventClick: function(info) {
-                            if (confirm("Are you sure you want to delete this event?")) {
-                                info.event.remove();
-                            }
-                        }
+                        eventReceive: 
+                                function(info){ 
+                                    alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+                                    addRecipeToDB(info.event.title, info.event.start);
+                        }, 
+                        eventClick: 
+                                    function(info) {
+                                        if (confirm("Are you sure you want to delete this event?")) {
+                                            info.event.remove();
+                                        }
+                                    }
                     });
                        
                     
 
                 calendar.render();
+                console.log(localStorage.getItem('usertoken'));
+                function addRecipeToDB(recipeName, recipeDate) {
+                                var tokenrecipe={
+                                    recipe: {
+                                        name: recipeName,
+                                        date: recipeDate
+                                    },
+                                    token: localStorage.getItem('usertoken')
+                                    
+                                }
+                                console.log(tokenrecipe);
+                                $.ajax({
+                                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    success: function(data) {
+                                        alert("Success.");
+                                    },
+                                    data: JSON.stringify(tokenrecipe),
+                                    processData:false,
+                                    contentType: "application/json; charset=UTF-8",
+                                    error: function(xhr, ajaxOptions, thrownError) {
+                                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                                    }
+                                });
+                            }    
                     var Draggable = FullCalendar.Draggable;
                     var containerEl = document.getElementById('recipelist');
 
@@ -195,12 +218,11 @@
                     new Draggable(containerEl, {
                         itemSelector: '.recipe',
                         eventData: function(recipeEl) {
-                        return {
-                            title: recipeEl.innerText
-                        };
+                            return {
+                                title: recipeEl.innerText
+                            };
                         }
-                    });
-                                            
+                    });                       
             });
             
         </script>
