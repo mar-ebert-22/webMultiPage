@@ -244,8 +244,48 @@
         
         </script>
 
+        <script>
+            function deleteIngredient() {
+
+                var ingredient =  prompt("Bitte geben Sie den Namen des Zutats ein:");
+
+                var tokeningredient =  {
+                   token : localStorage.getItem('usertoken'),
+                   ingredients: {
+                          name: ingredient
+                   } 
+                } 
+
+                
+
+                 console.log(tokeningredient);
+                
+                $.ajax({
+                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist/ingredientzwei',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    processData: false,
+                    data: JSON.stringify(
+                        tokeningredient
+                    ),
+                    success: function (data) {
+                        alert('Zutat erfolgreich gelöscht');
+                        window.location.href = 'homepage.html';
+                        // Hier können Sie den Code hinzufügen, um die Einkaufsliste zu aktualisieren
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                        window.location.href = 'homepage.html';
+                    }
+                });
+                }
+            ;
+        </script>
+
         <div id="shoppinglist">
             <ul id="list"></ul>
+            <button id="delete-ingredient" onclick="deleteIngredient()">Delete Ingredient?</button>
         </div>
                 <script>
                     (function getShoppingList() {
@@ -268,6 +308,17 @@
                             });
                     })();
                 </script>
+                <script>
+
+               // document.querySelector('#delete-ingredient').addEventListener('click', deleteIngredient()); {
+                //event.preventDefault(); // Verhindert das Laden der Logout-Seite
+
+                
+
+                
+        
+
+        </script>
     </body>
     <footer>
         <p> © 2023 Senid, Anton and Marvin</p>
