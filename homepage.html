@@ -169,7 +169,7 @@
                         weekNumbers:true,
                         eventDrop: function(info){ 
                             console.log(info.event.title + " was dropped on " + info.event.start.toISOString());
-                            addRecipeToDB(info.event.title, info.event.date);
+                            addRecipeToDB(info.event.title, info.event.start);
                         }, 
                         eventClick: 
                                     function(info) {
@@ -183,10 +183,10 @@
 
                 calendar.render();
                 console.log(localStorage.getItem('usertoken'));
-                function addRecipeToDB(title, date) {
+                function addRecipeToDB(recipeName) {
                                 var tokenrecipe={
                                     recipe: {
-                                        name: title
+                                        name: recipeName
                                     },
                                     token: localStorage.getItem('usertoken')
                                     
