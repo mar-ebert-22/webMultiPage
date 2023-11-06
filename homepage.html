@@ -42,11 +42,7 @@
         }
         
         .cart-icon {
-            position: absolute;
-            top: 15%;
-            bottom: 0px;
-            right: 40px;
-            font-size: 40px;
+            font-size: 20px;
             cursor: pointer;
             z-index: 1;
         }
@@ -74,21 +70,24 @@
             <h1>StudentFoodPlaner</h1>
             <nav>
                 <ul id="Navbar">
+                    <li><a class="cart-icon" id="open-popup">&#128722;</a></li>
+                    
                     <li><a href="homepage.html">Home</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
                     <li><a id="logout" onclick="logout()">Logout</a></li>
                 </ul>
             </nav>
-        </header>
             <div class="popup" id="popup">
-                        <div class="popup-content">
-                            <span class="close" id="close-popup">&times;</span>
-                            <h2>Supermärkte in Mosbach</h2>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20794.319303994875!2d9.112347846916917!3d49.34666112907168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssupermarkt!5e0!3m2!1sde!2sde!4v1699007486891!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
-                    <div class="cart-icon" id="open-popup">&#128722;</div>
+                <div class="popup-content">
+                    <span class="close" id="close-popup">&times;</span>
+                    <h2>Supermärkte in Mosbach</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20794.319303994875!2d9.112347846916917!3d49.34666112907168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssupermarkt!5e0!3m2!1sde!2sde!4v1699007486891!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </header>
+           
+                    
                     
             <div class="search_function">
                 <label for="search">Search for recipes:</label>
