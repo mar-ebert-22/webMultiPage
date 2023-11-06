@@ -170,7 +170,7 @@
                         eventReceive: 
                                 function(info){ 
                                     alert(info.event.title + " was dropped on " + info.event.start.toISOString());
-                                    addRecipeToDB(info.event.title, info.event.date);
+                                    addRecipeToDB(info.event.title, info.event.start);
                         }, 
                         eventClick: 
                                     function(info) {
