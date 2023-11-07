@@ -36,10 +36,11 @@ header {
     grid-area:shoppinglist;
     grid-column:3;
     grid-row:2;
-    background-color:aqua;
+    background-color: bisque ;
 }
 #list{
     list-style: none;
+    background-color: bisque ;
 }
 
 footer {
@@ -92,9 +93,9 @@ footer {
     transform: translate(-50%, -50%);
     background: #fff;
     padding: 20px;
+    color: black;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color:black;
 }
 
 .close {
