@@ -4,99 +4,57 @@
         <title>StudentFoodPlaner</title>
             <meta charset="utf-8"/>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+            <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> -->
             <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js"></script>
-            <script src=" js/functions.js"></script>
-            <link rel="stylesheet" href="css/style.css">
-            <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-            
-<style>
-    .popup {
-            display: none;
-            position: fixed;
-            z-index: 1000; /* Set a high z-index */
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.7);
-        }
-        
-        .popup-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            color: black;
-        }
-        
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        
-        .cart-icon {
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        #delete-ingredient {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            font-size: 1.5em;
-            background: none;
-            border: none;
-            font-size: 50px;
-        }
-
-        #shoppinglist {
-            position: relative;
-        }
-
-        #open-popupIngredients {
-            position: absolute;
-            bottom: 0;
-            font-size: 45px;
-            background: none;
-            border: none;
-        }
-
-        .popupIngredients {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000; /* Set a high z-index */
-        }
-        
-            </style>
-
-    </head>
+            <script src="../js/jquery-3.6.0.min.js"> </script>
+            <link rel="stylesheet" href="../css/style.css">
+            <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+    </head> 
     
     <body>
         <header>
+            
             <h1>StudentFoodPlaner</h1>
+            <script>
+                    function logout() {
+
+                    var email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
+
+                            console.log(email);
+                    if (email) {
+                        $.ajax({
+                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logoff',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            contentType: "application/json; charset=UTF-8",
+                            processData: false,
+                            data: JSON.stringify({
+                                email: email
+                            }),
+                            success: function (data) {
+                                //alert('Logout erfolgreich');
+                                window.location.href = 'login.html';
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                                window.location.href = 'login.html';
+                                
+                            }
+
+                        });
+                    }
+
+                    }
+            </script>
             <nav>
                 <ul id="Navbar">
+                   
                     <li><a class="cart-icon" id="open-popup">&#128722;</a></li>
                     
                     <li><a href="homepage.html">Home</a></li>
                    <!-- <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>-->
-                    <li><a id="logout" onclick="logout()">Logout</a></li>
+                   <li><a id="logout" onclick= "logout()">Logout</a></li>
                 </ul>
             </nav>
             <div class="popup" id="popup">
@@ -115,46 +73,7 @@
                 <input type="text" id="search" name="search">
                 <button id="search-btn">Search</button>
                 <ul id="recipelist"></ul>
-
-                
-                    <script>
-
-                    function logout() {
-
-                        var email = prompt("Bitte geben Sie Ihre Email-Adresse ein:");
-
-                        console.log(email);
-                        if (email) {
-                            $.ajax({
-                                url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/auth/logoff',
-                                type: 'DELETE',
-                                dataType: 'json',
-                                contentType: "application/json; charset=UTF-8",
-                                processData: false,
-                                data: JSON.stringify({
-                                    email: email
-                                }),
-                                success: function (data) {
-                                    //alert('Logout erfolgreich');
-                                    window.location.href = 'login.html';
-                                },
-                                error: function (xhr, ajaxOptions, thrownError) {
-                                    alert('Error: ' + xhr.status + '   ' + thrownError);
-                                    window.location.href = 'login.html';
-                                    
-                                }
-
-                            });
-                        }
-                        
-                    }
-                    
-
-                </script>
-
-
-                
-                    <script>
+                 <script>
                         $(document).ready(function() {
                             $('#search-btn').click(function() {
                                 var query = $('#search').val();
@@ -172,19 +91,21 @@
                                     },
                                     success: function (data) {
                                         var tempString = '';
-                                        var ingredients = '';
                                         $.each(data.results, function(index, value) {
                                             tempString += '<li class="recipe" data-title="' + value.title + '" data-id="' + value.id + '">' + value.title + '</li>';
-                                            console.log(data.ingredients);
+                                            
                                         })
                                         
                                         $("#recipelist").html(tempString);
                                         $(".recipe").draggable({
-                                            helper: 'clone',
-                                            stop: function(event, ui) {
-                                                    var recipeId = $(this).data('id');
-                                                    getIngredientsForRecipe(recipeId);
-                                                }
+                                            helper: 'clone'
+                                            
+                                        });
+                                        $(".recipe").hover(function(){
+                                            $(this).style.cursor = "pointer";
+                                            
+                                            var recipeID = $(this).data("id");
+                                            showIngredientsInPopUp(showIngredientsOfRecipe(recipeID)); 
                                         });
                                         
                                     },
@@ -193,29 +114,41 @@
                                     }
                                 });
                             });
-                                function getIngredientsForRecipe(recipeId) {
-                                    $.ajax({
-                                        url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + recipeId + '/ingredientWidget.json',
-                                        type: 'GET',
-                                        dataType: 'json',
-                                        contentType: 'application/json',
-                                        headers: {
-                                            'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
-                                            'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-                                        },
-                                        
-                                            success: function (data) {
-                                                var tempString ='';
-                                                console.log('Ingredients for the selected recipe added to shoppinglist');
-                                                console.log(data.ingredients);
-                                            },
-                                                error: function (xhr, ajaxOptions, thrownError) {
-                                                    alert('Error: ' + xhr.status + '   ' + thrownError);
-                                                }
-                                    });
-                                }
 
-                               
+                            function showIngredientsOfRecipe(id){
+                                $.ajax({
+                                    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/ingredientWidget.json',
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    contentType: 'application/json',
+                                    headers: {
+                                        'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
+                                        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+                                    },
+                                    success: function (data) {
+                                        showIngredientsInPopUp(data.ingredients);
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                                    }
+                                });
+                            
+                            }
+                            function showIngredientsInPopUp(ingredients){
+                                    console.log(ingredients);
+                                    var $popup = $('<div></div>')
+                                    .html(ingredients.join('<br>')) // Zeigen Sie die Zutaten als HTML an
+                                    .dialog({
+                                        title: 'Ingredients',
+                                        modal: true,
+                                        width: 400,
+                                        buttons: {
+                                        "Close": function() {
+                                            $(this).dialog("close");
+                                        }
+                                        }
+                                    })
+                                }
                         });
                     </script>
             </div>
@@ -323,22 +256,19 @@
                     var Draggable = FullCalendar.Draggable;
                     var containerEl = document.getElementById('recipelist');
 
-                    // Initialisierung der externen Events bestehend aus den Rezepten
-
+                    
                     new Draggable(containerEl, {
                         itemSelector: '.recipe',
                         eventData: function(recipeEl) {
                             return {
                                 title: recipeEl.innerText
-                               // description: recipeEl.getIngredientsForRecipe()                    
-                            };
+                              };
                         }
                     });                       
             });
             
         </script>
 
-        <!-- <script src="script.js"></script> -->
         <script>
             const openPopup = document.getElementById('open-popup');
             const closePopup = document.getElementById('close-popup');
@@ -371,7 +301,7 @@
                  console.log(tokeningredient);
                 
                 $.ajax({
-                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist/ingredient',
+                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist/ingredientzwei',
                     type: 'DELETE',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -382,7 +312,7 @@
                     success: function (data) {
                         alert('Zutat erfolgreich gelöscht');
                         window.location.href = 'homepage.html';
-                        // Hier können Sie den Code hinzufügen, um die Einkaufsliste zu aktualisieren
+                        
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert('Error: ' + xhr.status + '   ' + thrownError);
