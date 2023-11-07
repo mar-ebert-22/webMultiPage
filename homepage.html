@@ -284,10 +284,13 @@
                             dataType: 'json',
                             contentType: 'application/json',
                             success: function(data){
-                                calendar.addEvent({
-                                    title: data.name,
-                                    start: data.date
+                                $.each(data.recipes, function(index, value) {
+                                    calendar.addEvent({
+                                    title: value.name,
+                                    start: value.date
                                 });
+                                })
+                              
                             },
                             error: function(xhr, ajaxOptions, thrownError) {
                                 alert('Error: ' + xhr.status + '   ' + thrownError);
