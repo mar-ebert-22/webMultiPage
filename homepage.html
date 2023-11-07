@@ -242,12 +242,13 @@
                                     function(info) {
                                         if (confirm("Are you sure you want to delete this event?")) {
                                             info.event.remove();
+                                            deleteRecipe(info.event.title, info.event.start);
                                         }
                                     }
                     });
                        
                     
-
+                getRecipesFromDB();
                 calendar.render();
                 console.log(localStorage.getItem('usertoken'));
                 function addRecipeToDB(recipeName, recipeDate) {
@@ -275,7 +276,45 @@
                                         alert('Error: ' + xhr.status + '   ' + thrownError);
                                     }
                                 });
-                            }    
+                            } 
+                    function getRecipesFromDB(){
+                        $.ajax({
+                            url:'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
+                            type: 'GET',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data){
+                                calendar.addEvent({
+                                    title: data.name,
+                                    start: data.date
+                                });
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                            }
+                        });
+                    }   
+                    function deleteRecipe(recipeName, recipeDate){
+                        var tokenrecipe={
+                            token: localStorage.getItem('usertoken'),
+                                recipe: {
+                                    name: recipeName,
+                                    date: recipeDate
+                                }
+                        }
+                        $.ajax({
+                            url:'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/recipes',
+                            type: 'DELETE',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            success: function(data){
+                                alert("Successful DELETE of Recipe");
+                            },
+                            error: function(xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                            }
+                        });
+                    }   
                     var Draggable = FullCalendar.Draggable;
                     var containerEl = document.getElementById('recipelist');
 
