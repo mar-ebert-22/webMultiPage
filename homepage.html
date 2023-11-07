@@ -138,18 +138,50 @@
                                     },
                                     success: function (data) {
                                         var tempString = '';
+                                        var ingredients = '';
                                         $.each(data.results, function(index, value) {
-                                            tempString += '<li class="recipe" data-title="' + value.title + '" data-id="' + value.id + '">' + value.title + '</li>';                                        })
+                                            tempString += '<li class="recipe" data-title="' + value.title + '" data-id="' + value.id + '">' + value.title + '</li>';
+                                            console.log(data.ingredients);
+                                        })
+                                        
                                         $("#recipelist").html(tempString);
                                         $(".recipe").draggable({
-                                            helper: 'clone'
-                                        } );
+                                            helper: 'clone',
+                                            stop: function(event, ui) {
+                                                    var recipeId = $(this).data('id');
+                                                    getIngredientsForRecipe(recipeId);
+                                                }
+                                        });
+                                        
                                     },
                                     error: function (xhr, ajaxOptions, thrownError) {
                                         alert('Error: ' + xhr.status + '   ' + thrownError);
                                     }
                                 });
                             });
+                                function getIngredientsForRecipe(recipeId) {
+                                    $.ajax({
+                                        url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + recipeId + '/ingredientWidget.json',
+                                        type: 'GET',
+                                        dataType: 'json',
+                                        contentType: 'application/json',
+                                        headers: {
+                                            'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
+                                            'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+                                        },
+                                        
+                                            success: function (data) {
+                                                var tempString ='';
+                                                console.log('Ingredients for the selected recipe added to shoppinglist');
+                                                console.log(data.ingredients);
+                                            },
+                                                error: function (xhr, ajaxOptions, thrownError) {
+                                                    alert('Error: ' + xhr.status + '   ' + thrownError);
+                                                }
+                                    });
+                                }
+
+                               
                         });
                     </script>
             </div>
@@ -221,6 +253,7 @@
                         eventData: function(recipeEl) {
                             return {
                                 title: recipeEl.innerText
+                               // description: recipeEl.getIngredientsForRecipe()                    
                             };
                         }
                     });                       
