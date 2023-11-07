@@ -42,13 +42,43 @@
         }
         
         .cart-icon {
-            position: absolute;
-            top: 100px;
-            bottom: 0px;
-            right: 40px;
-            font-size: 40px;
+            font-size: 20px;
             cursor: pointer;
             z-index: 1;
+        }
+
+        #delete-ingredient {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            font-size: 50px;
+        }
+
+        #shoppinglist {
+            position: relative;
+        }
+
+        #open-popupIngredients {
+            position: absolute;
+            bottom: 0;
+            font-size: 45px;
+            background: none;
+            border: none;
+        }
+
+        .popupIngredients {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Set a high z-index */
         }
         
             </style>
@@ -60,21 +90,24 @@
             <h1>StudentFoodPlaner</h1>
             <nav>
                 <ul id="Navbar">
+                    <li><a class="cart-icon" id="open-popup">&#128722;</a></li>
+                    
                     <li><a href="homepage.html">Home</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                   <!-- <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>-->
                     <li><a id="logout" onclick="logout()">Logout</a></li>
                 </ul>
             </nav>
-        </header>
             <div class="popup" id="popup">
-                        <div class="popup-content">
-                            <span class="close" id="close-popup">&times;</span>
-                            <h2>Supermärkte in Mosbach</h2>
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20794.319303994875!2d9.112347846916917!3d49.34666112907168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssupermarkt!5e0!3m2!1sde!2sde!4v1699007486891!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        </div>
-                    </div>
-                    <div class="cart-icon" id="open-popup">&#128722;</div>
+                <div class="popup-content">
+                    <span class="close" id="close-popup">&times;</span>
+                    <h2>Supermärkte in Mosbach</h2>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d20794.319303994875!2d9.112347846916917!3d49.34666112907168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssupermarkt!5e0!3m2!1sde!2sde!4v1699007486891!5m2!1sde!2sde" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </header>
+           
+                    
                     
             <div class="search_function">
                 <label for="search">Search for recipes:</label>
@@ -277,8 +310,49 @@
         
         </script>
 
+        <script>
+            function deleteIngredient() {
+
+                var ingredient =  prompt("Bitte geben Sie den Namen des Zutats ein:");
+
+                var tokeningredient =  {
+                   token : localStorage.getItem('usertoken'),
+                   ingredients: {
+                          name: ingredient
+                   } 
+                } 
+
+                
+
+                 console.log(tokeningredient);
+                
+                $.ajax({
+                    url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist/ingredientzwei',
+                    type: 'DELETE',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    processData: false,
+                    data: JSON.stringify(
+                        tokeningredient
+                    ),
+                    success: function (data) {
+                        alert('Zutat erfolgreich gelöscht');
+                        window.location.href = 'homepage.html';
+                        // Hier können Sie den Code hinzufügen, um die Einkaufsliste zu aktualisieren
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Error: ' + xhr.status + '   ' + thrownError);
+                        window.location.href = 'homepage.html';
+                    }
+                });
+                }
+            ;
+        </script>
+
         <div id="shoppinglist">
             <ul id="list"></ul>
+            <button id="delete-ingredient" onclick="deleteIngredient()">🗑️</button>
+            <button id="open-popupIngredients" class="action-button">➕</button>
         </div>
                 <script>
                     (function getShoppingList() {
@@ -301,6 +375,78 @@
                             });
                     })();
                 </script>
+                
+                <div class="popupIngredients" id="popupIngredients">
+                    <h2>Zutat hinzufügen</h2>
+                    <label for="name">Name: </label>
+                    <input type="text" id="name">
+                    <br>
+                    <label for="menge">Menge: </label>
+                    <input type="text" id="menge">
+                    <br>
+                    <button id="add-ingredient">Hinzufügen</button>
+                    <button id="close-popupIngredients">Abbrechen</button>
+                </div>
+            
+                <script>
+
+                    const openPopupIngredients = document.getElementById('open-popupIngredients');
+                    const closePopupIngredients = document.getElementById('close-popupIngredients');
+                    const popupIngredients = document.getElementById('popupIngredients');
+                    const addIngredientButton = document.getElementById('add-ingredient');
+                    const ingredientNameInput = document.getElementById('name');
+                    const ingredientQuantityInput = document.getElementById('menge');
+                    
+                    openPopupIngredients.addEventListener('click', () => {
+                    popupIngredients.style.display = 'block';
+                    });
+
+                    closePopupIngredients.addEventListener('click', () => {
+                        popupIngredients.style.display = 'none';
+                    });
+
+                    addIngredientButton.addEventListener('click', () => {
+                        const ingredientName = ingredientNameInput.value;
+                        const ingredientQuantity = ingredientQuantityInput.value;
+
+                        if (ingredientName && ingredientQuantity) {
+                            const ingredientData = {
+                                token: localStorage.getItem('usertoken'),
+                                ingredients: {
+                                    name: ingredientName,
+                                    quantity: ingredientQuantity
+                                }
+                            };
+           
+                        $.ajax({
+                            url: 'https://hidden-sierra-69971-16d83e153d07.herokuapp.com/api/v1.0/shoppinglist',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(ingredientData),
+                            success: function (data) {
+                                alert('Zutat erfolgreich hinzugefügt');
+                                window.location.href = 'homepage.html';
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                alert('Error: ' + xhr.status + '   ' + thrownError);
+                                window.location.href = 'homepage.html';
+                            }
+                        });
+                    } else {
+                        alert('Bitte geben Sie den Namen und die Menge der Zutat ein');
+                    }
+
+                    popupIngredients.style.display = 'none';
+                });
+                </script>
+
+                
+
+                
+        
+
+       
     </body>
     <footer>
         <p> © 2023 Senid, Anton and Marvin</p>
