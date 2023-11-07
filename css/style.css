@@ -1,101 +1,149 @@
+
 body{
-    display: grid;
-    grid-template-areas: "header header header"
-                        " search_function calendar shoppinglist"
-                        "footer footer footer";
-    grid-template-rows: 10% 80% 10% ;
-    grid-template-columns: auto 70% 15%;
+        display: grid;
+        grid-template-areas: "header header header"
+                                                " search_function calendar shoppinglist"
+                                                "footer footer footer";
+        grid-template-rows: 10% 80% 10% ;
+        grid-template-columns: auto 70% 15%;
 }
 
 header {
-    grid-area: header;
-    grid-column:1/4;
-    grid-row:1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #333;
-    color: #fff;
+        grid-area: header;
+        grid-column:1/4;
+        grid-row:1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #333;
+        color: #fff;
 }
 
 #search_function {
-    grid-area: search_function;
-    grid-column:1;
-    grid-row:2;
-    background-color: #ccc;
+        grid-area: search_function;
+        grid-column:1;
+        grid-row:2;
+        background-color: #ccc;
 }
 
 #calendar {
-    grid-area:calendar;
-    grid-column:2/3;
-    grid-row:2;
-    background-color: #ccc;
+        grid-area:calendar;
+        grid-column:2/3;
+        grid-row:2;
+        background-color: #ccc;
 }
 
 #shoppinglist {
-    grid-area:shoppinglist;
-    grid-column:3;
-    grid-row:2;
-    background-color: bisque ;
+        grid-area:shoppinglist;
+        grid-column:3;
+        grid-row:2;
+        background-color: bisque ;
 }
 #list{
-    list-style: none;
-    background-color: bisque ;
+        list-style: none;
+        background-color: bisque ;
 }
 
 footer {
-    grid-area:footer;
-    grid-column:1/4;
-    grid-row:3;
-    background-color: black;
-    color: #fff;
-    margin:0;
-    padding:0;
+        grid-area:footer;
+        grid-column:1/4;
+        grid-row:3;
+        background-color: black;
+        color: #fff;
+        margin:0;
+        padding:0;
 }
 #Navbar {
-    list-style-type: none;
-    margin: 0;
-    overflow: hidden;
-    background-color: #333;
-  }
-  
-  #Navbar li {
-    float: left;
-  }
-  
-  #Navbar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
+        list-style-type: none;
+        margin: 0;
+        overflow: hidden;
+        background-color: #333;
+    }
+    
+    #Navbar li {
+        float: left;
+    }
+    
+    #Navbar li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
 
-  #Navbar li a:hover {
-    background-color: #111;
-  }
+    #Navbar li a:hover {
+        background-color: #111;
+    }
 
-  .popup {
-    display: none;
-    position: fixed;
-    z-index: 1000; 
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.7);
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 1000; 
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.7);
 }
 
 .popup-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    padding: 20px;
-    color: black;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        padding: 20px;
+        color: black;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Media queries for responsive design */
+@media only screen and (max-width: 768px) {
+    body {
+        grid-template-areas: "header header header"
+                                                " search_function search_function search_function"
+                                                "calendar calendar calendar"
+                                                "shoppinglist shoppinglist shoppinglist"
+                                                "footer footer footer";
+        grid-template-rows: 10% 20% 20% 20% 10%;
+        grid-template-columns: auto;
+    }
+    
+    #calendar {
+        grid-column:1;
+        grid-row:3;
+    }
+    
+    #shoppinglist {
+        grid-column:1;
+        grid-row:4;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    body {
+        grid-template-areas: "header"
+                                                "search_function"
+                                                "calendar"
+                                                "shoppinglist"
+                                                "footer";
+        grid-template-rows: 10% 20% 20% 20% 10%;
+        grid-template-columns: auto;
+    }
+    
+    #search_function {
+        grid-row:2;
+    }
+    
+    #calendar {
+        grid-row:3;
+    }
+    
+    #shoppinglist {
+        grid-row:4;
+    }
 }
 
 .close {
