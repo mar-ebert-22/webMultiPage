@@ -101,12 +101,6 @@
                                             helper: 'clone'
                                             
                                         });
-                                        $(".recipe").hover(function(){
-                                            $(this).style.cursor = "pointer";
-                                            
-                                            var recipeID = $(this).data("id");
-                                            showIngredientsInPopUp(showIngredientsOfRecipe(recipeID)); 
-                                        });
                                         
                                     },
                                     error: function (xhr, ajaxOptions, thrownError) {
@@ -114,41 +108,6 @@
                                     }
                                 });
                             });
-
-                            function showIngredientsOfRecipe(id){
-                                $.ajax({
-                                    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/ingredientWidget.json',
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    contentType: 'application/json',
-                                    headers: {
-                                        'X-RapidAPI-Key': '6328442dbemsh528bbb036e41048p1c68e9jsna9b1d1b2afad',
-                                        'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-                                    },
-                                    success: function (data) {
-                                        showIngredientsInPopUp(data.ingredients);
-                                    },
-                                    error: function (xhr, ajaxOptions, thrownError) {
-                                        alert('Error: ' + xhr.status + '   ' + thrownError);
-                                    }
-                                });
-                            
-                            }
-                            function showIngredientsInPopUp(ingredients){
-                                    console.log(ingredients);
-                                    var $popup = $('<div></div>')
-                                    .html(ingredients.join('<br>')) // Zeigen Sie die Zutaten als HTML an
-                                    .dialog({
-                                        title: 'Ingredients',
-                                        modal: true,
-                                        width: 400,
-                                        buttons: {
-                                        "Close": function() {
-                                            $(this).dialog("close");
-                                        }
-                                        }
-                                    })
-                                }
                         });
                     </script>
             </div>
@@ -162,6 +121,7 @@
                     
                     {
                         timeZone: 'UTC',
+                        
                         initialView: 'dayGridMonth',
                         editable: true,
                         selectable: true,
